@@ -1,45 +1,25 @@
 import React from "react";
-import './Sidebar.css'
-import {Button, ButtonGroup} from "@mui/material";
-import {Add, Home, Logout, Person, Sell} from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-
+import "./Sidebar.css";
+import { NavLink } from "react-router-dom";
+import PaymentIcon from '@mui/icons-material/Payment';
+import PersonIcon from '@mui/icons-material/Person';
+import GradingIcon from '@mui/icons-material/Grading';
 
 const Sidebar: React.FC = () => {
-
-    const navigation = useNavigate();
-
-    const navigateToGrade = () => {
-        navigation('/grades');
-    }
-
-    const navigateToHome = () => {
-        navigation('/home');
-    }
-
-    const buttons = [
-        <Button  key="Home" style={{height: "80px"}} startIcon={<Home/>} variant="text" onClick={navigateToHome}>Home</Button>,
-        <Button  key="Add" style={{height: "80px"}} startIcon={<Add/>} variant="text" onClick={navigateToGrade}>Setup</Button>,
-        <Button key="Student" style={{height: "80px"}} startIcon={<Person/>} variant="text">Student</Button>,
-        <Button key="Fees" style={{height: "80px"}} startIcon={<Sell/>} variant="text">Fees</Button>,
-        <Button key="Logout" style={{height: "80px"}} startIcon={<Logout/>} variant="text">Logout</Button>,
-    ];
-
-    return (
-        <>
-            <aside className="flex flex-col w-1/4 gap-3 bg-gray-800 text-white">
-                <header className="flex flex-col items-center justify-center h-1/6 bg-gray-900 shadow-md">
-                    <h1 className="text-3xl">School Management</h1>
-
-                </header>
-                <ButtonGroup orientation="vertical" aria-label="vertical outline button group" variant="text"
-                             color="inherit">
-                    {buttons}
-                </ButtonGroup>
-            </aside>
-        </>
-    )
-}
-
+  return (
+    <>
+      <aside className="flex flex-col w-1/4 gap-3 border overflow-y-auto border-r-1 bg-white text-white">
+        <header className="flex flex-col items-center justify-center h-1/6 bg-white">
+          <h1 className="text-3xl text-gray-600">School Management</h1>
+        </header>
+        <nav className="flex flex-col items-center justify-center gap-3">
+          <NavLink to="/home/feeCategory" className="text-gray-600" ><PaymentIcon color='info'/> FeeSetup</NavLink>
+          <NavLink to="/home/grades" className="text-gray-600"><GradingIcon color='info'/> Grades</NavLink>
+          <NavLink to="/home/students" className="text-gray-600"><PersonIcon color='info'/> Students</NavLink>
+        </nav>
+      </aside>
+    </>
+  );
+};
 
 export default Sidebar;

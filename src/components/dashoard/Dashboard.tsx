@@ -4,46 +4,35 @@ import Sidebar from "../sidebar/Sidebar.tsx";
 import { AccountCircle } from "@mui/icons-material";
 import type { RootState } from "../../store/store.ts";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
-import Grade from "../grade/Grade.tsx";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+
 
 const Dashboard: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.message);
-  const navigate = useNavigate();
 
-  const navigateToLogin = () => {
-    navigate("/");
-  };
+
 
   useEffect(() => {
-    if (user == null) {
-      navigateToLogin();
-    }
+    
     console.log("message is ", user);
-  }, [navigate, navigateToLogin, user]);
+  }, [user]);
 
   return (
     <>
-      <div className="flex flex-row min-h-screen min-w-full">
+      <div className="flex flex-row min-h-screen min-w-full ">
         <Sidebar />
-        <div className="flex flex-col w-3/4 gap-4">
-          <header className="bg-white h-1/6 flex flex-row items-center justify-end p-2 shadow-md">
+        <div className="flex flex-col overflow-y-auto w-3/4 gap-4">
+          <header className="h-1/6 flex flex-row items-center justify-end p-2 ">
             <h1 className="text-gray-800">
               {user.firstname} {user.firstname}
             </h1>{" "}
             <AccountCircle color={"disabled"} />
           </header>
-          <section className="bg-white flex flex-col shadow-md m-5 p-3">
-            <h1 className="text-3xl text-gray-600">My Classes </h1>
+          <section className="bg-white flex flex-col border border-r-1 m-5 p-3 rounded">
+            <h1 className="text-base text-gray-600">Welcome {user.firstname} {user.lastname} </h1>
           </section>
-          <section className="flex flex-row h-5/6 shadow-md m-5 p3 bg-white">
-          
-              <Routes>
-                <Route path="/grades" element={<Grade />} />
-              </Routes>
-            
+          <section className="flex flex-col h-5/6 m-5 p3">
+            <Outlet/>
           </section>
         </div>
       </div>

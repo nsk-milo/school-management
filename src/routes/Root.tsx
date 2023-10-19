@@ -1,6 +1,6 @@
 import React from "react";
 
-const Root = () => {
+const Root:React.FC = () => {
     return (
         <>
             <aside>
