@@ -7,7 +7,7 @@ import {Fees} from "./fees/Fees.tsx";
 export const FeeCategory: React.FC = () => {
     return (
         <>
-            <div className="flex flex-row p-5 gap-2 w-full bg-white">
+            <div className="flex flex-row p-5 gap-2 w-full bg-white border border-r-1">
                 <div className='flex flex-col  items-center border border-r-1 p-3 gap-3 w-1/2'>
                     <h4 className="text-base text-gray-600">Add Fee category</h4>
 
@@ -25,7 +25,7 @@ export const FeeCategory: React.FC = () => {
 
             </div>
 
-            <div className="flex flex-row p-5 gap-2 w-full bg-white mt-2">
+            <div className="flex flex-row p-5 gap-2 w-full bg-white mt-2 border border-r-1">
                 <div className='flex flex-col  items-center border border-r-1 p-3 gap-3 w-1/2'>
                     <h4 className="text-base text-gray-600">Add Grades</h4>
 

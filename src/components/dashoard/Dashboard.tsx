@@ -3,19 +3,41 @@ import "./Dashboard.css";
 import Sidebar from "../sidebar/Sidebar.tsx";
 import { AccountCircle } from "@mui/icons-material";
 import type { RootState } from "../../store/store.ts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-
+import axios from "axios";
+import { GradeResponse } from "../../store/features/grade/Grade.ts";
+import { fetchGrades } from "../../store/features/grade/GradeSlice.ts";
 
 const Dashboard: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.message);
-
-
+  const token = useSelector((state: RootState) => state.user.token);
+  const grades = useSelector((state:RootState) => state.grade.message)
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const fetchAllGrades = async () => {
+      await axios
+        .get("172.31.160.1:3000/grade/allGrades", config)
+        .then((result) => {
+          if (result.status == 200) {
+            console.log(result.data.meassage);
+            const grades: GradeResponse = {
+              message: result.data.meassage,
+            };
+            dispatch(fetchGrades(grades));
+          }
+        });
+    };
+
     console.log("message is ", user);
-  }, [user]);
+    fetchAllGrades();
+  }, [dispatch, token, user]);
 
   return (
     <>
@@ -29,10 +51,15 @@ const Dashboard: React.FC = () => {
             <AccountCircle color={"disabled"} />
           </header>
           <section className="bg-white flex flex-col border border-r-1 m-5 p-3 rounded">
-            <h1 className="text-base text-gray-600">Welcome {user.firstname} {user.lastname} </h1>
+            <h1 className="text-base text-gray-600">
+              Welcome {user.firstname} {user.lastname}{" "}
+            </h1>
+            {/* {grades.map((item) => {
+              return <p>{item.name}</p>
+            })} */}
           </section>
           <section className="flex flex-col h-5/6 m-5 p3">
-            <Outlet/>
+            <Outlet />
           </section>
         </div>
       </div>

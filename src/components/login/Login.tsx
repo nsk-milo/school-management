@@ -27,7 +27,7 @@ const Login: React.FC = () => {
     };
     const login = async () => {
         // console.log(baseUrl)
-        await axios.post("http://192.168.1.132:3000/user/login",payload).then((result) => {
+        await axios.post("http://192.168.0.132:3000/user/login",payload).then((result) => {
             if (result.status == 200){
                 console.log(result.data);
                 const loginResponse: LoginResponse = {
